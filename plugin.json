@@ -1,0 +1,16 @@
+{
+  "name": "gstack-ag",
+  "version": "1.0.0",
+  "description": "A comprehensive plugin for Antigravity that brings GStack commands into your workflow. Contains over 50 skills for planning, designing, QA, reviewing, and shipping code.",
+  "author": {
+    "name": "Ravi8043"
+  },
+  "repository": "https://github.com/Ravi8043/gstack-ag",
+  "keywords": [
+    "antigravity",
+    "plugin",
+    "gstack",
+    "ai-agent",
+    "workflow"
+  ]
+}
