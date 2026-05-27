@@ -1,107 +1,129 @@
 # gstack-ag
 
-**To be completely honest, this project is just a plugin for Antigravity of GStack.** 
+**This project is a plugin for Antigravity of GStack.** 
 
-It brings over 50 GStack slash commands directly into your Antigravity agent workflow. Rather than just being 4 opinionated skills, this plugin injects an entire suite of tools covering product strategy, design consultation, QA, system health checks, context management, and deployment.
+It brings over 50 GStack slash commands directly into your Antigravity agent workflow. This plugin injects an entire suite of tools covering product strategy, design consultation, QA, system health checks, context management, and deployment.
 
 ---
 
-## One-Line Install
+## ⚠️ Important Note on Command Names
 
+You will notice that the skills in this repository are named with a `gstack-` prefix (e.g., `gstack-office-hours`). However, **Antigravity strips prefixes or registers the internal command name rather than the folder name.** 
+
+This means that if a folder is named `gstack-office-hours`, the runtime will expose it simply as `/office-hours`. This is an Antigravity runtime behavior, so when you use these commands in the chat interface, you often drop the `gstack-` prefix.
+
+## Extensive List of Skills (Slash Commands)
+
+This plugin registers the following 52 slash commands (internal names exposed by Antigravity) to use within your agent:
+
+### Core & Context Management
+- `/gstack`
+- `/context-restore`
+- `/context-save`
+- `/sync-gbrain`
+- `/setup-gbrain`
+- `/pair-agent`
+
+### Planning & Spec
+- `/autoplan`
+- `/spec`
+- `/plan-ceo-review`
+- `/plan-design-review`
+- `/plan-devex-review`
+- `/plan-eng-review`
+- `/plan-tune`
+
+### Review & Health
+- `/review`
+- `/design-review`
+- `/devex-review`
+- `/health`
+- `/cso`
+- `/careful`
+
+### UI/UX, Design & Browser
+- `/design-consultation`
+- `/design-html`
+- `/design-shotgun`
+- `/browse`
+- `/open-gstack-browser`
+- `/setup-browser-cookies`
+- `/scrape`
+
+### QA & Testing
+- `/qa`
+- `/qa-only`
+- `/ios-qa`
+
+### iOS Development
+- `/ios-clean`
+- `/ios-design-review`
+- `/ios-fix`
+- `/ios-sync`
+
+### Release & Deploy
+- `/ship`
+- `/setup-deploy`
+- `/land-and-deploy`
+- `/document-release`
+- `/landing-report`
+- `/canary`
+
+### Utilities & Other
+- `/office-hours`
+- `/investigate`
+- `/document-generate`
+- `/make-pdf`
+- `/learn`
+- `/benchmark`
+- `/benchmark-models`
+- `/freeze`
+- `/unfreeze`
+- `/guard`
+- `/retro`
+- `/skillify`
+- `/upgrade`
+
+*(Note: Depending on how Antigravity registers them, some commands may still require the `gstack-` prefix. Check your Antigravity slash commands menu after installation).*
+
+---
+
+## Installation Guide
+
+The plugin needs to be installed in your Antigravity plugins directory: `~/.gemini/config/plugins/gstack-ag/`.
+
+### macOS / Linux
+
+For Unix-based systems, installation is straightforward since the filesystem is unified.
+
+**One-Line Install:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Ravi8043/gstack-ag/main/install.sh | bash
 ```
 
-This installs gstack-ag as an Antigravity 2.0 plugin at `~/.gemini/config/plugins/gstack-ag/`.
+### Windows
 
-### Requirements
+**⚠️ CRITICAL WARNING FOR WINDOWS USERS: The Filesystem Split**
 
-- **git** — for cloning the repository
-- **Antigravity 2.0** — the Gemini agent runtime
+If you run the `curl ... | bash` command inside a Unix-like shell on Windows (such as **Git Bash, WSL, MSYS2, or MinGW**), you are likely to experience a "successful" installation where the commands do not actually appear in Antigravity.
 
-### Options
+**Why this happens:**
+You have TWO separate environments on your machine:
+1. **Windows World**: Your actual Antigravity app runs natively in Windows and looks for plugins at `C:\Users\<YourUser>\.gemini\config\plugins`.
+2. **Linux/Git-Bash World**: When you run the install script inside a Linux-like shell, the shell expands `~/.gemini/config/plugins` to its internal virtual environment (e.g., `/home/<YourUser>/.gemini/config/plugins`).
 
-```bash
-# Force reinstall (overwrites existing installation)
-curl -fsSL https://raw.githubusercontent.com/Ravi8043/gstack-ag/main/install.sh | bash -s -- --force
+Your installer writes into the Linux world, but your Antigravity app reads from the Windows world. The plugin successfully installs, but into a folder Antigravity cannot see.
 
-# Uninstall
-curl -fsSL https://raw.githubusercontent.com/Ravi8043/gstack-ag/main/install.sh | bash -s -- --uninstall
+**The Fix: Manual Clone via Windows CMD / PowerShell**
+
+To guarantee the plugin is installed in the native Windows path where Antigravity expects it, **avoid the curl script**. Instead, manually clone the repository directly using the standard Windows Command Prompt (CMD) or PowerShell:
+
+```cmd
+cd %USERPROFILE%\.gemini\config\plugins
+git clone https://github.com/Ravi8043/gstack-ag.git
 ```
 
----
-
-## Extensive List of Skills (Slash Commands)
-
-This plugin registers the following 52 slash commands to use within Antigravity:
-
-### Core & Context Management
-- `/gstack`
-- `/gstack-context-restore`
-- `/gstack-context-save`
-- `/gstack-sync-gbrain`
-- `/gstack-setup-gbrain`
-- `/gstack-pair-agent`
-
-### Planning & Spec
-- `/gstack-autoplan`
-- `/gstack-spec`
-- `/gstack-plan-ceo-review`
-- `/gstack-plan-design-review`
-- `/gstack-plan-devex-review`
-- `/gstack-plan-eng-review`
-- `/gstack-plan-tune`
-
-### Review & Health
-- `/gstack-review`
-- `/gstack-design-review`
-- `/gstack-devex-review`
-- `/gstack-health`
-- `/gstack-cso`
-- `/gstack-careful`
-
-### UI/UX, Design & Browser
-- `/gstack-design-consultation`
-- `/gstack-design-html`
-- `/gstack-design-shotgun`
-- `/gstack-browse`
-- `/gstack-open-gstack-browser`
-- `/gstack-setup-browser-cookies`
-- `/gstack-scrape`
-
-### QA & Testing
-- `/gstack-qa`
-- `/gstack-qa-only`
-- `/gstack-ios-qa`
-
-### iOS Development
-- `/gstack-ios-clean`
-- `/gstack-ios-design-review`
-- `/gstack-ios-fix`
-- `/gstack-ios-sync`
-
-### Release & Deploy
-- `/gstack-ship`
-- `/gstack-setup-deploy`
-- `/gstack-land-and-deploy`
-- `/gstack-document-release`
-- `/gstack-landing-report`
-- `/gstack-canary`
-
-### Utilities & Other
-- `/gstack-office-hours`
-- `/gstack-investigate`
-- `/gstack-document-generate`
-- `/gstack-make-pdf`
-- `/gstack-learn`
-- `/gstack-benchmark`
-- `/gstack-benchmark-models`
-- `/gstack-freeze`
-- `/gstack-unfreeze`
-- `/gstack-guard`
-- `/gstack-retro`
-- `/gstack-skillify`
-- `/gstack-upgrade`
+This ensures the repository is cloned natively into `C:\Users\<YourUser>\.gemini\config\plugins\gstack-ag`, aligning the filesystem paths perfectly.
 
 ---
 
@@ -120,25 +142,30 @@ When a command is triggered, Antigravity spins up a subagent with the appropriat
 
 ## Updating
 
-If you installed via git clone (the default):
+If you installed via `git clone`:
 
 ```bash
+# On macOS/Linux:
 cd ~/.gemini/config/plugins/gstack-ag
 git pull
-```
 
-Or force reinstall:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/Ravi8043/gstack-ag/main/install.sh | bash -s -- --force
+# On Windows (CMD/PowerShell):
+cd %USERPROFILE%\.gemini\config\plugins\gstack-ag
+git pull
 ```
 
 ---
 
 ## Uninstalling
 
+To uninstall, simply delete the plugin directory:
+
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Ravi8043/gstack-ag/main/install.sh | bash -s -- --uninstall
+# On macOS/Linux:
+rm -rf ~/.gemini/config/plugins/gstack-ag
+
+# On Windows (PowerShell):
+Remove-Item -Recurse -Force $HOME\.gemini\config\plugins\gstack-ag
 ```
 
 ---
@@ -149,10 +176,7 @@ curl -fsSL https://raw.githubusercontent.com/Ravi8043/gstack-ag/main/install.sh 
 |----------|--------|
 | macOS | ✅ Fully supported |
 | Linux | ✅ Fully supported |
-| Windows (WSL/Git Bash) | ✅ Supported via MSYS/WSL path translation |
+| Windows | ✅ Supported (Manual `git clone` recommended over WSL/Git Bash) |
 
 ---
 
-## License
-
-MIT — see [LICENSE](LICENSE) for details.
